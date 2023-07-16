@@ -1,0 +1,5 @@
+## commit_convention.yml
+# commit_types:
+#   - type: description of what the short-form "type" means
+scopes:
+  lint: description of what short-form `lint` represents
