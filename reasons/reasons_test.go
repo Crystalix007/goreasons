@@ -37,7 +37,7 @@ func TestReasonsReport(t *testing.T) {
 	assert.NoError(t, rs.Report(reasons.NON_FATAL, "non-fatal message", err, reason.Priority(reason.HIGH)))
 	assert.ErrorIs(t, rs.Report(reasons.FATAL, "fatal message", err, reason.Priority(reason.LOW)), err)
 
-	assert.ErrorIs(t, rs.Report(reasons.Severity(20), "unknown severity", err), reasons.UnknownErrorSeverity)
+	assert.ErrorIs(t, rs.Report(reasons.Severity(20), "unknown severity", err), reasons.ErrUnknownSeverity)
 }
 
 func TestReasonsErrorContainsErrors(t *testing.T) {

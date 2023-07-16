@@ -9,8 +9,8 @@ import (
 	"github.com/Crystalix007/goreasons/reason"
 )
 
-// UnknownErrorSeverity is returned when an unknown error severity is provided.
-var UnknownErrorSeverity = errors.New("reasons: unknown error severity")
+// ErrUnknownSeverity is returned when an unknown error severity is provided.
+var ErrUnknownSeverity = errors.New("reasons: unknown error severity")
 
 // Reasons aggregates non-fatal errors and fatal errors.
 type Reasons struct {
@@ -41,7 +41,7 @@ func (r *Reasons) Report(
 		return r.Fatal(message, err, opts...)
 	}
 
-	return UnknownErrorSeverity
+	return ErrUnknownSeverity
 }
 
 // NonFatal allows a non-fatal error to be reported.
