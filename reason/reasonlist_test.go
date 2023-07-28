@@ -49,3 +49,16 @@ func TestReasonListError(t *testing.T) {
 	assert.ErrorContains(t, rl, testErr1.Error())
 	assert.ErrorContains(t, rl, testErr2.Error())
 }
+
+func TestReasonListFailed(t *testing.T) {
+	t.Parallel()
+
+	rl := reason.ReasonList{}
+
+	assert.False(t, rl.Failed())
+
+	testErr := errors.New("reason_test: test error")
+	rl.Add(reason.New("test message", testErr))
+
+	assert.True(t, rl.Failed())
+}

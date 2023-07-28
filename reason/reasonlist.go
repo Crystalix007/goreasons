@@ -16,6 +16,11 @@ func (rl *ReasonList) Add(reason Reason) {
 	*rl = append(*rl, reason)
 }
 
+// Failed returns whether any errors have been reported into this [ReasonList].
+func (rl ReasonList) Failed() bool {
+	return len(rl) > 0
+}
+
 // Error reports an error string of all underlying errors.
 func (rl ReasonList) Error() string {
 	return errors.Join(rl.Unwrap()...).Error()

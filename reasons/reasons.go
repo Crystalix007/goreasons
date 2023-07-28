@@ -65,6 +65,12 @@ func (r *Reasons) Fatal(
 	return r
 }
 
+// Failed returns whether any failures have occured. Allows library consumers
+// to check if any reasons have been reported.
+func (r Reasons) Failed() bool {
+	return r.nonFatal.Failed() || r.fatal.Failed()
+}
+
 // Error returns the error string of all underlying errors.
 // Returns the empty string if there are no underlying errors.
 // Returns first fatal errors (if any), then non-fatal errors (if any).

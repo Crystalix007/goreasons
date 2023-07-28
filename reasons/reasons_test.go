@@ -40,6 +40,32 @@ func TestReasonsReport(t *testing.T) {
 	assert.ErrorIs(t, rs.Report(reasons.Severity(20), "unknown severity", err), reasons.ErrUnknownSeverity)
 }
 
+func TestReasonsFailed(t *testing.T) {
+	t.Parallel()
+
+	rs := reasons.Reasons{}
+
+	// Shouldn't report to have failed without an issue.
+	assert.False(t, rs.Failed())
+
+	err := errors.New("reasons_test: test non error")
+
+	// Should report to have failed if there is any non-fatal error.
+	rs.NonFatal("non-fatal error", err)
+	assert.True(t, rs.Failed())
+
+	rs = reasons.Reasons{}
+
+	// Should report to have failed if there is any fatal error.
+	rs.Fatal("fatal error", err)
+	assert.True(t, rs.Failed())
+
+	// Should report to have failed if there are both non-fatal and fatal
+	// errors.
+	rs.NonFatal("non-fatal error", err)
+	assert.True(t, rs.Failed())
+}
+
 func TestReasonsErrorContainsErrors(t *testing.T) {
 	t.Parallel()
 
